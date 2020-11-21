@@ -1,0 +1,471 @@
+‎<!DOCTYPE html>‎
+‎<html>‎
+
+‎<head>‎
+    ‎<title>Titanic Passenger Survival Prediction System</title>‎
+    ‎<meta charset="utf-8" />‎
+‎    <meta name="viewport" content="width=device-width, initial-scale=1" />‎
+‎    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/‎‎4.3.1/css/bootstrap.min.css" />‎
+‎    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fon‎t-awesome/4.7.0/css/font-awesome.min.css" />‎
+
+‎    <!-- Custom Stylesheet-->‎
+‎    <link rel="stylesheet" href="{{ url_for('Static',filename='styles/mystyle.css') }}" />‎
+‎    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.‎min.js"></script>‎
+‎    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/um‎d/popper.min.js"></script>‎
+‎    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/pr‎efixfree.min.js"></script>‎
+‎    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>‎
+‎    <script src="http://use.fontawsome.com/releases/v5.0.8/js/all.js"></script>‎
+
+‎    <!-- Custom Scripting-->‎
+‎    <script src="{{ url_for('Static',filename='js/myscript.js') }}"></script>
+<style>
+* {
+  box-sizing: border-box;
+  
+}
+
+/* Create two equal columns that floats next to each other */
+.column1 {
+  width: 60%;
+  float: left;
+  padding: 5%;
+  height: 100%; /* Should be removed. Only for demonstration */
+}
+.column2 {
+  width: 40%;
+  float: right;
+  padding: 5%;
+  height: 100%; /* Should be removed. Only for demonstration */
+}
+.container {
+margin: 5%;
+}
+
+/* Clear floats after the columns */
+    </style>‎
+
+‎</head>‎
+
+‎<body>‎
+    ‎<body style="background:url(../Static/Images/titanicbackground.png);
+  background-size: auto;">
+        ‎<!-- Main div -->‎
+‎      <div class="container mt-5 mb-10">‎
+    ‎     <div class="row";>‎
+    ‎             <!-- Left Card for Project Introduction -->‎
+    ‎         <div class="column1" 
+                 style="color: white; background: rgba(0, 0, 0, 0.9);">‎
+                 ‎<h1 class="m-5">‎
+                    ‎  <strong>Titanic Passenger Survival Prediction System</strong>‎
+                    ‎</h1>‎
+                ‎<!-- Salutaion -->‎
+‎                <p class="ml-5" style="font-weight: bolder; color: green; text-align: left; font-size: large;">‎
+    ‎                    Asslam-o-Alaikum !</p>‎
+               ‎<!-- Instructions -->‎
+                ‎<ul class="ml-3 mr-3" style="text-align: justify">‎
+    ‎               <li>Titanic was a british passenger liner that sank in the North ‎Atlantic Ocean in the early morning hours of 15 April 1912 after striking an iceberg</li>‎
+                   <li>Of the estimated 2,224 passengers and crew aboard, more than 1,500 ‎died</li>‎
+                   <li>The main aim of this project is to predict whether a passenger ‎aboard on Titanic Ship survived or not?</li>‎
+                </ul>‎
+    
+                    ‎‎<!-- Read Instructions button -->‎
+                 ‎<button class="btn btn-secondary mt-4" style="width: 200px;height: 50px; margin-left: 50px; margin-bottom: 50px; background-color: gray; color: white;" data-toggle="modal" data-‎target="#instructionmodal">Read Instructions
+                    ‎</button>‎
+             </div>‎
+    ‎             <!-- Right Card for System Inputs -->‎
+    ‎         <div class="column2"style="background: rgba(247, 223, 227, 0.9); ">‎
+                 ‎<div>‎
+                    ‎  <h2 class="m-‎‎5" style="color: black"><strong>Predict Survival</strong></h2>‎
+                 ‎</div>‎
+                 <div id="inputs-form">‎
+                 ‎<form action="/" method="POST">‎   
+                    ‎<!-- PClass Dropdown -->‎
+                    ‎<div class="form-group row">‎
+                    ‎    <label class="col-lg-4 col-4 offset-lg-1 col-form-label"‎ style="font-weight: bolder; font-size: large">PClass</label>‎
+                         ‎ <div class="col-lg-6 col-xl-5 col-6">‎
+                    ‎          <div class="dropdown">‎
+                              <select class="form-control btn-secondary" name="pclass" id="pclass"style="background-color: rgb(0, 0, 0, 0.5);border-width: 3px;border-color: #f0526c;color: white;height: 40px;"onchange="checkSelection(this)" required>‎
+                    ‎             <option selected disabled value="">Select PClass</option>‎
+                    ‎             <option value="1">First Class</option>‎
+                   ‎              <option value="2">Second Class</option>‎
+                                 <option value="3">Third Class</option>‎
+                    ‎           </select>‎
+                    ‎         </div>‎
+                    ‎     </div>‎
+                    ‎</div>‎
+                    
+                    ‎<!-- Gender Dropdown -->‎
+                    ‎<div class="form-group row">‎
+                    ‎   <label class="col-lg-4 col-4 offset-lg-1 col-form-label"‎
+                    ‎   style="font-weight: bolder; font-size: large">Gender</label>‎
+                    ‎   <div class="col-lg-6 col-xl-5 col-6">‎
+                    ‎      <div class="dropdown">‎
+                    ‎         <select class="form-control btn-‎secondary" name="gender" id="gender" style="background: rgb(0, 0, 0, 0.5); border-width: 3px;border-color: #f0526c;color: white;height: 40px;" onchange="checkSelection(this)" required>‎
+                    ‎            <option selected disabled value="">Select Gender</option>‎
+                    ‎                  <option value="1">Male</option>‎
+                    ‎                  <option value="0">Female</option>‎
+                    ‎               </select>‎
+                    ‎       </div>‎
+                    ‎   </div>‎
+                    ‎</div>‎
+                    
+                    ‎<!-- Siblings Dropdown -->‎
+                    ‎<div class="form-group row">‎
+                    ‎   <label class="col-lg-4 col-4 offset-lg-1 col-form-label"‎
+                    ‎   style="font-weight: bolder; font-size: large">Siblings</label>‎
+                    ‎     <div class="col-lg-6 col-xl-5 col-6">‎
+                    ‎      <div class="dropdown">‎
+                    ‎         <select class="form-control btn-‎secondary" name="siblings" id="siblings" style="background: rgb(0, 0, 0, 0.5);border-width: 3px;border-color: #f0526c;color: rgb(245, 236, 236); height: 40px;" onchange="checkSelection(this)" required>‎
+                    ‎            ‎‎<option selected disabled value="">Select Siblings</option>‎
+                    ‎            <option value="0">None</option>‎
+                    ‎            <option value="1">One</option>‎
+                    ‎            <option value="2">Two</option>‎
+                    ‎                  <option value="3">Three</option>‎
+                    ‎               </select>‎
+                    ‎            </div>‎
+                    ‎         </div>‎
+                    ‎</div>‎
+                    
+                    ‎<!-- Embarked Dropdown -->‎
+                    ‎<div class="form-group row">‎
+                    ‎   <label class="col-lg-4 col-4 offset-lg-1 col-form-label"‎style="font-weight: bolder; font-size: large">Embarked</label>‎
+                    ‎   <div class="col-lg-6 col-xl-5 col-6">‎
+                    ‎      <div class="dropdown">‎
+                    ‎         <select class="form-control btn-‎secondary" name="embarked" id="embarked" style="background: rgb(0, 0, 0, 0.5);border-width: 3px;border-color: #f0526c;color: rgb(248, 238, 238); height: 40px;" onchange="checkSelection(this)" required>‎
+                    ‎            ‎‎<option selected disabled value="">Select Embarked</option>‎
+                    ‎            <option value="0">Cherbourg</option>‎
+                    ‎            <option value="1">Queenstown</option>‎
+                    ‎            <option value="2">Southampton</option>‎
+                    ‎         </select>‎
+                    ‎      </div>‎
+                    ‎   </div>‎
+                    ‎</div>‎
+                    
+                    ‎<!-- Predict Button -->‎
+                    ‎<div class="form-group row mt-5">‎
+                    ‎   <div class="col-lg-8 offset-lg-2 col-9 offset-1 mb-5">‎
+                    ‎      <button type="submit" class="btn btn-‎success" id="calculateButton" style="width: 200px; height: 50; color: rgb(252, 252, 253); background-color: green;border-width: 4px; border-color: white;">Predict
+                    ‎      </button>‎
+                    ‎   </div>‎
+                    ‎</div>‎
+                    ‎   </form>
+                    <script>
+                        // Making dropdown border as green when the value of attribute is changed
+                        function checkSelection(element) {
+                         if (element.value != "") {
+                             element.style.borderColor = "green"; }}//change color to green ‎
+
+
+                    </script>‎
+                    ‎</div>‎
+                    
+    ‎       </div>‎
+    
+    ‎     </div>
+ </div>‎
+ ‎<!-- Instruction Modal -->‎
+‎  <div class="modal fade" id="instructionmodal" tabindex="-‎‎1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">‎
+    ‎   <div class="modal-dialog" role="document">‎
+    ‎      <div class="modal-content">‎
+    ‎         <div class="modal-header">‎
+        ‎         <h4 class="modal-title" style="margin-left: 35%">‎
+            ‎        <strong>Instructions</strong>‎
+                 ‎</h4>‎
+                 ‎<button type="button" class="close" data-dismiss="modal" aria-‎label="Close">‎
+            ‎        <span aria-hidden="true">&times;</span>‎
+            ‎      </button>‎
+            
+    ‎         </div>‎
+    ‎         ‎
+    ‎   <div class="modal-body">‎
+          ‎<!-- Instruction Heading -->‎
+‎<div class="w-100 text-‎center" style="background: #009cff; color: white; height: 50px">‎
+    ‎    <h5 style="padding-top: 10px">Input Attributes Details</h5>‎
+    ‎</div>‎
+    
+    ‎<!-- Collapsable System Input Attributes in Instruction Modal -->‎
+    ‎<div id="accordion">‎
+    ‎    <div class="card mt-2" style="background: rgb(173, 170, 170)">‎
+    ‎        <div class="card-header" id="pclassheading" style="display: inline-‎flex;height: 40px;align-content: center;cursor: pointer;" data-‎toggle="collapse" data-target="#pclasscollapse" aria-expanded="false"‎
+    ‎            aria-controls="collapseOne">‎
+    ‎            <i class="fa fa-plus-circle">‎
+    ‎                <b class="ml-3" style="font-family: sans-serif">PClass -‎‎ Passenger Class</b>‎
+    ‎            </i>‎
+    ‎        </div>‎
+    ‎        <div id="pclasscollapse" class="collapse" aria-‎labelledby="pclassheading"‎
+    ‎            style="background: white" data-parent="#accordion">‎
+    ‎            <div class="card-body">‎
+    ‎                Possible Values of PClass are :‎
+    ‎                <ul>‎
+    ‎                    <li>First Class</li>‎
+    ‎                    <li>Second Class</li>‎
+    ‎                    <li>Third Class</li>‎
+    ‎                </ul>‎
+    ‎            </div>‎
+    ‎        </div>‎
+    ‎    </div>‎
+    ‎    <div class="card mt-1" style="background: rgb(173, 170, 170)">‎
+    ‎        <div class="card-header" id="genderheading" style="display: inline-‎flex;height: 40px;align-content: center;cursor: pointer;" data-‎toggle="collapse" data-target="#gendercollapse" aria-expanded="false"‎
+    ‎            aria-controls="collapseOne">‎
+    ‎            <i class="fa fa-plus-circle">‎
+    ‎                <b class="ml-3" style="font-family: sans-serif">Gender</b>‎
+    ‎            </i>‎
+    ‎        </div>‎
+    ‎        <div id="gendercollapse" class="collapse" aria-‎labelledby="genderheading"‎
+    ‎            style="background: white" data-parent="#accordion">‎
+    ‎            <div class="card-body">‎
+    ‎                Possible Values of Gender are :‎
+    ‎                <ul>‎
+    ‎                    <li>Male</li>‎
+    ‎                    <li>Female</li>‎
+    ‎                </ul>‎
+    ‎            </div>‎
+    ‎        </div>‎
+    ‎    </div>‎
+    ‎    <div class="card mt-1" style="background: rgb(173, 170, 170)">‎
+    ‎        <div class="card-‎header" id="siblingsheading" style="display: inline-‎flex;height: 40px;align-content: center;cursor: pointer;" data-‎toggle="collapse" data-target="#siblingscollapse" aria-expanded="false"‎
+    ‎            aria-controls="collapseOne">‎
+    ‎            <i class="fa fa-plus-circle">‎
+    ‎                <b class="ml-3" style="font-family: sans-‎serif">Siblings</b>‎
+    ‎            </i>‎
+    ‎        </div>‎
+    ‎        <div id="siblingscollapse" class="collapse" aria-‎labelledby="siblingsheading"‎
+    ‎            style="background: white" data-parent="#accordion">‎
+    ‎            <div class="card-body">‎
+    ‎                Possible Values of Siblings are :‎
+    ‎                <ul>‎
+    ‎                    <li>None</li>‎
+    ‎                    <li>One</li>‎
+    ‎                    <li>Two</li>‎
+    ‎                    <li>Three</li>‎
+    ‎                </ul>‎
+    ‎            </div>‎
+    ‎        </div>‎
+    ‎    </div>‎
+    ‎    <div class="card mt-1" style="background: rgb(173, 170, 170)">‎
+    ‎        <div class="card-‎header" id="embarkedheading" style="display: inline-‎flex;height: 40px;align-content: center;cursor: pointer;" data-‎toggle="collapse" data-target="#embarkedcollapse" aria-expanded="false"‎
+    ‎            aria-controls="collapseOne">‎
+    ‎            <i class="fa fa-plus-circle">‎
+    ‎                <b class="ml-3" style="font-family: sans-‎serif">Embarked</b>‎
+    ‎            </i>‎
+    ‎        </div>‎
+    ‎        <div id="embarkedcollapse" class="collapse" aria-‎labelledby="embarkedheading"‎
+    ‎            style="background: white" data-parent="#accordion">‎
+    ‎            <div class="card-body">‎
+    ‎                Possible Values of Embarked are :‎
+    ‎                <ul>‎
+    ‎                    <li>Cherbourg</li>‎
+    ‎                    <li>Southampton</li>‎
+    ‎                    <li>Queenstown</li>‎
+    ‎                </ul>‎
+    ‎            </div>‎
+    ‎        </div>‎
+    ‎    </div>‎
+    ‎</div>
+    ‎<div class="w-100 text-center mt-‎‎3" style="background: #009cff; color: white; height: 50px">‎
+        ‎    <h5 style="padding-top: 10px">Steps to Follow</h5>‎
+        ‎</div>‎
+        
+        ‎<!-- Steps of Prediction -->‎
+        ‎<div class="mt-3 ml-3">‎
+        ‎    <span style="font-weight: bolder">Step 1 : </span> Select
+        ‎    values of
+        ‎    <span style="font-weight: bolder; color: #009cff">PClass, Gender, Siblings, Embarked
+        ‎    </span><br />‎
+        ‎    <span style="font-weight: bolder">Step 2 : </span> Click on
+        ‎    <span style="font-weight: bolder; color: #009cff">Predict</span>‎
+        ‎    Button<br />‎
+        ‎    <span style="font-weight: bolder">Step 3 : </span> Our Titanic
+        ‎    Passenger Survival Prediction System will predict whether
+        ‎    passenger
+        ‎    <span style="font-weight: bolder; color: green">Survived</span>‎
+        ‎    or <span style="font-weight: bolder; color: red">Not </span> ?‎
+        ‎</div>‎ 
+    ‎         </div>‎
+    ‎      </div>‎
+    
+    ‎   </div>
+    <script>
+        // Handle PClass collapse on click
+$("#pclassheading").click(function () {
+    if ($("#pclassheading").attr("aria-expanded") == "false") {
+        $("#pclassheading i").removeClass("fa-plus-circle");
+        $("#pclassheading i").addClass("fa-minus-circle");
+    }
+    if ($("#pclassheading").attr("aria-expanded") == "true") {
+        $("#pclassheading i").removeClass("fa-minus-circle");
+        $("#pclassheading i").addClass("fa-plus-circle");
+    }
+});
+
+// Handle Gender collapse on click
+$("#genderheading").click(function () {
+    if ($("#genderheading").attr("aria-expanded") == "false") {
+        $("#genderheading i").removeClass("fa-plus-circle");
+        $("#genderheading i").addClass("fa-minus-circle");
+    }
+    if ($("#genderheading").attr("aria-expanded") == "true") {
+        $("#genderheading i").removeClass("fa-minus-circle");
+        $("#genderheading i").addClass("fa-plus-circle");
+    }
+});
+
+// Handle Siblings collapse on click
+$("#siblingsheading").click(function () {
+    if ($("#siblingsheading").attr("aria-expanded") == "false") {
+        $("#siblingsheading i").removeClass("fa-plus-circle");
+        $("#siblingsheading i").addClass("fa-minus-circle");
+    }
+    if ($("#siblingsheading").attr("aria-expanded") == "true") {
+        $("#siblingsheading i").removeClass("fa-minus-circle");
+        $("#siblingsheading i").addClass("fa-plus-circle");
+    }});
+
+// Handle Embarked collapse on click
+$("#embarkedheading").click(function () {
+    if ($("#embarkedheading").attr("aria-expanded") == "false") {
+        $("#embarkedheading i").removeClass("fa-plus-circle");
+        $("#embarkedheading i").addClass("fa-minus-circle");
+    }
+    if ($("#embarkedheading").attr("aria-expanded") == "true") {
+        $("#embarkedheading i").removeClass("fa-minus-circle");
+       $("#embarkedheading i").addClass("fa-plus-circle");
+  }
+});
+       </script>   ‎
+    ‎</div>‎
+    
+    ‎<!-- Result Modal -->‎
+‎<div class="modal fade" id="resultmodal" tabindex="-1" role="dialog" aria-‎labelledby="modelTitleId"‎
+‎    aria-hidden="true">‎
+‎    <div class="modal-dialog" role="document">‎
+‎        <div class="modal-content">‎
+‎            <div class="modal-header">‎
+‎                ‎h4 class="modal-title" style="margin-left: 26%; margin-right: 17%">‎
+‎    <strong>Prediction of Model</strong>‎
+‎</h4>‎
+‎<button type="button" class="close" data-dismiss="modal" aria-‎label="Close">‎
+‎    <span aria-hidden="true">&times;</span>‎
+‎</button>‎
+
+‎            </div>‎
+‎            <div class="modal-body text-center">‎
+‎                ‎button class="btn btn-success" type="button" data-toggle="collapse"‎
+‎    data-target=".multi-collapse" aria-expanded="false"‎
+‎    aria-‎controls="multiCollapseExample1 multiCollapseExample2" id="inputhandler">‎
+‎    Click to view inputs
+‎</button>‎
+<script>
+    // Handle Display of inputs on result modal
+$("#inputhandler").click(function () {
+    if ($("#inputhandler").attr("aria-expanded") == "false") {
+        document.getElementById("inputhandler").innerText =
+            "Click to minimize inputs";
+        $("#inputhandler").removeClass("btn-success");
+        $("#inputhandler").addClass("btn-secondary");
+    }
+    if ($("#inputhandler").attr("aria-expanded") == "true") {
+        document.getElementById("inputhandler").innerText =
+            "Click to view inputs";
+        $("#inputhandler").removeClass("btn-secondary");
+        $("#inputhandler").addClass("btn-success");
+    }
+});
+
+</script>
+‎<!-- Display of Forwarded Inputs In Result Modal -->‎
+‎<div class="row mt-3">‎
+    ‎    <div class="col-6">‎
+    ‎        <div class="collapse multi-collapse" id="multiCollapseExample1">‎
+    ‎            <div class="card">‎
+    ‎                <div class="card-header" style="background-color: #009cff; color: white">‎
+    ‎                    <strong>PClass</strong>‎
+    ‎                </div>‎
+    ‎                <div class="card-body">{{pclass}}</div>‎
+    ‎            </div>‎
+    ‎        </div>‎
+    ‎    </div>‎
+    ‎    <div class="col-6">‎
+    ‎        <div class="collapse multi-collapse" id="multiCollapseExample2">‎
+    ‎            <div class="card">‎
+    ‎                <div class="card-header" style="background-color: #009cff; color: white">‎
+    ‎                    <strong>Gender</strong>‎
+    ‎                </div>‎
+    ‎                <div class="card-body">{{gender}}</div>‎
+    ‎            </div>‎
+    ‎        </div>‎
+    ‎    </div>‎
+    ‎    <div class="col-6 mt-2">‎
+    ‎        <div class="collapse multi-collapse" id="multiCollapseExample3">‎
+    ‎            <div class="card">‎
+    ‎                <div class="card-header" style="background-color: #009cff; color: white">‎
+    ‎                    <strong>Siblings</strong>‎
+    ‎                </div>‎
+    ‎                <div class="card-body">{{siblings}}</div>‎
+    ‎            </div>‎
+    ‎        </div>‎
+    ‎    </div>‎
+    ‎    <div class="col-6 mt-2">‎
+    ‎        <div class="collapse multi-collapse" id="multiCollapseExample4">‎
+    ‎            <div class="card">‎
+    ‎                <div class="card-header" style="background-color: #009cff; color: white">‎
+    ‎                    <strong>Embarked</strong>‎
+    ‎                </div>‎
+    ‎                <div class="card-body">{{embarked}}</div>‎
+    ‎            </div>‎
+    ‎        </div>‎
+    ‎    </div>‎
+    ‎</div>‎
+    
+    ‎<!-- Arrow pointing downwards -->‎
+    ‎<div class="row mt-3 collapse multi-collapse">‎
+    ‎    <i class="fa fa-arrow-down" style="padding-left: 43%; font-size: 70px"></i>‎
+    ‎</div>‎
+    
+    ‎<!-- Display of predicted result -->‎
+‎<div class="result-box mt-3">‎
+    ‎    <p id="result">{{predicted_result}}</p>
+    <script>
+    $(document).ready(function () {
+    // Handle Predicted Result
+    $("#result").ready(function () {
+
+        // Handling the predited result to be green in case of ** Survived ‎‎**‎
+        if ($("#result").text() == "Survived") {
+            document.getElementById("result").innerHTML =
+                '<h1 id="result"><strong> Survived </strong></h1> ';
+            $("#result").css("color", "green");
+            document.getElementById("result").style.display = "block";
+        }
+
+        // Handling the predited result to be red in case of ** Not Survived **‎
+        if ($("#result").text() == "Not Survived") {
+            document.getElementById("result").innerHTML =
+                '<h1 id="result"><strong> Not Survived </strong></h1>';
+            $("#result").css("color", "#f22849");
+            document.getElementById("result").style.display = "block";
+        }
+    });
+});
+
+    </script>
+    <script>
+        // Handling of Result modal to be displayed
+window.onload = function () {
+    if (document.getElementById("result").innerText) {
+        $("#resultmodal").modal("show");
+    }
+};
+
+    </script>‎
+    ‎</div>‎
+    
+‎            </div>‎
+‎        </div>‎
+‎    </div>
+‎
+‎</div>‎
+
+ </body>‎
+
+‎ </html>‎
